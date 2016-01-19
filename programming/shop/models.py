@@ -1,3 +1,8 @@
 from django.db import models
+from blog.models import Post
 
-# Create your models here.
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post)
+    content = models.TextField()
+
