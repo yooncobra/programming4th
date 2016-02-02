@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView
@@ -40,6 +41,7 @@ class PostDetailView(DetailView):
 post_detail = PostDetailView.as_view()
 
 
+@login_required
 def post_new(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
@@ -53,6 +55,7 @@ def post_new(request):
     })
 
 
+@login_required
 def post_edit(request, pk):
     # post = Post.objects.get(pk=pk)
     post = get_object_or_404(Post, pk=pk)
@@ -69,6 +72,7 @@ def post_edit(request, pk):
     })
 
 
+@login_required
 def comment_new(request, post_pk):
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -86,6 +90,7 @@ def comment_new(request, post_pk):
     })
 
 
+@login_required
 def comment_edit(request, post_pk, pk):
     # comment = Comment.objects.get(pk=pk)
     comment = get_object_or_404(Comment, pk=pk)
@@ -100,3 +105,4 @@ def comment_edit(request, post_pk, pk):
     return render(request, 'blog/comment_form.html', {
         'form': form,
         })
+
