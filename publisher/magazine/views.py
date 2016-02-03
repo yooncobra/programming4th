@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import redirect, render
 from .models import Article
@@ -23,6 +24,7 @@ def article_new(request):
             article = form.save(commit=False)
             article.author = request.user
             article.save()
+            messages.success(request, '새 Article을 저장했습니다.')
             return redirect('magazine:article_list')
     else:
         form = ArticleForm()

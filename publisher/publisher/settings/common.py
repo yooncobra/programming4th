@@ -120,6 +120,13 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Internationalization
+
+from django.contrib.messages import constants as messages_constants
+MESSAGE_TAGS = {messages_constants.ERROR: 'danger'}
+MESSAGE_LEVEL = messages_constants.DEBUG
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
