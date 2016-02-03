@@ -45,7 +45,7 @@ def article_edit(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'Article을 수정했습니다.')
-            return redirect('magazine:article_detail', article.pk)
+            return redirect(article)
     else:
         form = ArticleForm(instance=article)
     return render(request, 'form.html', {
@@ -85,7 +85,7 @@ def comment_new(request, article_pk):
             comment.author = request.user
             comment.save()
             messages.success(request, '새 Comment를 저장했습니다.')
-            return redirect('magazine:article_detail', article.pk)
+            return redirect(article)
     else:
         form = CommentForm()
     return render(request, 'form.html', {
@@ -99,14 +99,14 @@ def comment_edit(request, article_pk, pk):
 
     if comment.author != request.user:
         messages.warning(request, '댓글 작성자만 수정할 수 있습니다.')
-        return redirect('magazine:article_detail', comment.article.pk)
+        return redirect(comment.article)
 
     if request.method == 'POST':
         form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
             form.save()
             messages.success(request, 'Comment를 수정했습니다.')
-            return redirect('magazine:article_detail', comment.article.pk)
+            return redirect(comment.article)
     else:
         form = CommentForm(instance=comment)
     return render(request, 'form.html', {
@@ -120,12 +120,12 @@ def comment_delete(request, article_pk, pk):
 
     if comment.author != request.user:
         messages.warning(request, '댓글 작성자만 삭제할 수 있습니다.')
-        return redirect('magazine:article_detail', comment.article.pk)
+        return redirect(comment.article)
 
     if request.method == 'POST':
         comment.delete()
         messages.success(request, 'Comment를 삭제했습니다.')
-        return redirect('magazine:article_detail', comment.article.pk)
+        return redirect(comment.article)
     return render(request, 'magazine/comment_confirm_delete.html', {
         'comment': comment,
     })
