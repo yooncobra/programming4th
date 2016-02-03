@@ -1,0 +1,21 @@
+{% extends "magazine/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>{{ article.title }}</h3>
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    {{ article.content|linebreaks }}
+                </div>
+            </div>
+
+            <a href="{% url "magazine:article_list" %}" class="btn btn-default">
+                Article List
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

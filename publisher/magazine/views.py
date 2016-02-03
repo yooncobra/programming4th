@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import Article
 from .forms import ArticleForm
 
@@ -30,5 +30,12 @@ def article_new(request):
         form = ArticleForm()
     return render(request, 'form.html', {
         'form': form,
+    })
+
+
+def article_detail(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    return render(request, 'magazine/article_detail.html', {
+        'article': article,
     })
 

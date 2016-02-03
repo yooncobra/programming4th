@@ -10,7 +10,11 @@
                 <tbody>
                     {% for article in article_list %}
                     <tr>
-                        <td>{{ article.title }}</td>
+                        <td>
+                            <a href="{% url "magazine:article_detail" article.pk %}">
+                                {{ article.title }}
+                            </a>
+                        </td>
                     </tr>
                     {% empty %}
                     <tr>
@@ -19,6 +23,10 @@
                     {% endfor %}
                 </tbody>
             </table>
+
+            <a href="{% url "magazine:article_new" %}" class="btn btn-primary">
+                New Article
+            </a>
         </div>
     </div>
 </div>
