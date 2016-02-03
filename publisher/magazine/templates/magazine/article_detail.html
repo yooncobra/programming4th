@@ -32,7 +32,8 @@
                     <div class="media-body">
                         <p>
                             {{ comment.message }} <small>by {{ comment.author }}</small>
-                            <a href="{% url "magazine:comment_edit" article.pk comment.pk %}">E</a>
+                            <a href="{% url "magazine:comment_edit" article.pk comment.pk %}" title="수정">E</a>
+                            <a href="{% url "magazine:comment_delete" article.pk comment.pk %}" class="text text-danger" title="삭제">D</a>
                         </p>
                     </div>
                 </div>

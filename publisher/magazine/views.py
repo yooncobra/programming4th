@@ -110,3 +110,20 @@ def comment_edit(request, article_pk, pk):
         'form': form,
     })
 
+
+@staff_member_required
+def comment_delete(request, article_pk, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+
+    if comment.author != request.user:
+        messages.warning(request, '댓글 작성자만 삭제할 수 있습니다.')
+        return redirect('magazine:article_detail', comment.article.pk)
+
+    if request.method == 'POST':
+        comment.delete()
+        messages.success(request, 'Comment를 삭제했습니다.')
+        return redirect('magazine:article_detail', comment.article.pk)
+    return render(request, 'magazine/comment_confirm_delete.html', {
+        'comment': comment,
+    })
+
