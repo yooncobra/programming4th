@@ -33,6 +33,22 @@ def article_new(request):
     })
 
 
+@staff_member_required
+def article_edit(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Article을 수정했습니다.')
+            return redirect('magazine:article_detail', article.pk)
+    else:
+        form = ArticleForm(instance=article)
+    return render(request, 'form.html', {
+        'form': form,
+    })
+
+
 def article_detail(request, pk):
     article = get_object_or_404(Article, pk=pk)
     return render(request, 'magazine/article_detail.html', {
