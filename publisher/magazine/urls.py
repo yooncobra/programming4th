@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^articles/(?P<pk>\d+)/$', views.article_detail, name='article_detail'),
     url(r'^articles/(?P<pk>\d+)/edit/$', views.article_edit, name='article_edit'),
     url(r'^articles/(?P<pk>\d+)/delete/$', views.article_delete, name='article_delete'),
+    url(r'^articles/(?P<article_pk>\d+)/comments/new/$', views.comment_new, name='comment_new'),
 ]
 

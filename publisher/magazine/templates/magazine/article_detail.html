@@ -11,17 +11,31 @@
                 </div>
             </div>
 
-            <a href="{% url "magazine:article_list" %}" class="btn btn-default">
-                Article List
-            </a>
+            <p>
+                <a href="{% url "magazine:article_list" %}" class="btn btn-default">
+                    Article List
+                </a>
 
-            <a href="{% url "magazine:article_edit" article.pk %}" class="btn btn-default">
-                Edit
-            </a>
+                <a href="{% url "magazine:article_edit" article.pk %}" class="btn btn-default">
+                    Edit
+                </a>
 
-            <a href="{% url "magazine:article_delete" article.pk %}" class="btn btn-danger">
-                Delete
-            </a>
+                <a href="{% url "magazine:article_delete" article.pk %}" class="btn btn-danger">
+                    Delete
+                </a>
+            </p>
+
+            <p><a href="{% url "magazine:comment_new" article.pk %}" class="btn btn-primary btn-block">New Comment</a></p>
+
+            {% for comment in article.comment_set.all %}
+                <div class="media">
+                    <div class="media-body">
+                        <p>{{ comment.message }} <small>by {{ comment.author }}</small></p>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="alert alert-info">등록된 댓글이 없습니다.</p>
+            {% endfor %}
         </div>
     </div>
 </div>

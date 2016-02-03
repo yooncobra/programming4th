@@ -1,8 +1,9 @@
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Article
-from .forms import ArticleForm
+from .forms import ArticleForm, CommentForm
 
 
 def index(request):
@@ -66,5 +67,25 @@ def article_delete(request, pk):
         return redirect('magazine:article_list')
     return render(request, 'magazine/article_confirm_delete.html', {
         'article': article,
+    })
+
+
+@login_required
+def comment_new(request, article_pk):
+    article = get_object_or_404(Article, pk=article_pk)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.article = article
+            comment.author = request.user
+            comment.save()
+            messages.success(request, '새 Comment를 저장했습니다.')
+            return redirect('magazine:article_detail', article.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'form.html', {
+        'form': form,
     })
 
