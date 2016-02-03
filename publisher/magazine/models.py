@@ -12,6 +12,7 @@ class Category(models.Model):
 
 
 class Article(models.Model):
+    category = models.ForeignKey(Category)
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
     title = models.CharField(max_length=100)
     content = models.TextField()
@@ -23,6 +24,7 @@ class Article(models.Model):
 
 
 class Comment(models.Model):
+    article = models.ForeignKey(Article)
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
