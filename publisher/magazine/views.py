@@ -7,7 +7,10 @@ from .forms import ArticleForm, CommentForm
 
 
 def index(request):
-    return render(request, 'magazine/index.html')
+    recent_article_list = Article.objects.all().order_by('id')[:10]
+    return render(request, 'magazine/index.html', {
+        'recent_article_list': recent_article_list,
+    })
 
 
 def article_list(request):
