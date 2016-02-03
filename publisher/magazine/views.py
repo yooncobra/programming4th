@@ -55,3 +55,16 @@ def article_detail(request, pk):
         'article': article,
     })
 
+
+
+@staff_member_required
+def article_delete(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    if request.method == 'POST':
+        article.delete()
+        messages.success(request, 'Article 을 삭제했습니다.')
+        return redirect('magazine:article_list')
+    return render(request, 'magazine/article_confirm_delete.html', {
+        'article': article,
+    })
+

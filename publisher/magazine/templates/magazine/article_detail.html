@@ -18,6 +18,10 @@
             <a href="{% url "magazine:article_edit" article.pk %}" class="btn btn-default">
                 Edit
             </a>
+
+            <a href="{% url "magazine:article_delete" article.pk %}" class="btn btn-danger">
+                Delete
+            </a>
         </div>
     </div>
 </div>

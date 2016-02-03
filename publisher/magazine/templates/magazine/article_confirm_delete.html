@@ -1,0 +1,20 @@
+{% extends "magazine/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="alert alert-danger">
+                    <h4>{{ article.title }}</h4>
+                    정말 삭제하시겠습니까??? 낙장불입이오 !!!
+                </div>
+                <a href="{% url "magazine:article_detail" article.pk %}" class="btn btn-success">돌아가기</a>
+                <input type="submit" class="btn btn-danger" value="정말 삭제하겠습니다 !!!" />
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
