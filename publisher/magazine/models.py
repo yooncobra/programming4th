@@ -7,6 +7,9 @@ class Category(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     udpated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Article(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
@@ -14,6 +17,9 @@ class Article(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     udpated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
 
 
 class Comment(models.Model):
