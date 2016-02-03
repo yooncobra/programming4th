@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Article
+from .models import Article, Comment
 from .forms import ArticleForm, CommentForm
 
 
@@ -85,6 +85,27 @@ def comment_new(request, article_pk):
             return redirect('magazine:article_detail', article.pk)
     else:
         form = CommentForm()
+    return render(request, 'form.html', {
+        'form': form,
+    })
+
+
+@login_required
+def comment_edit(request, article_pk, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+
+    if comment.author != request.user:
+        messages.warning(request, '댓글 작성자만 수정할 수 있습니다.')
+        return redirect('magazine:article_detail', comment.article.pk)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Comment를 수정했습니다.')
+            return redirect('magazine:article_detail', comment.article.pk)
+    else:
+        form = CommentForm(instance=comment)
     return render(request, 'form.html', {
         'form': form,
     })

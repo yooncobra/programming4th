@@ -30,7 +30,10 @@
             {% for comment in article.comment_set.all %}
                 <div class="media">
                     <div class="media-body">
-                        <p>{{ comment.message }} <small>by {{ comment.author }}</small></p>
+                        <p>
+                            {{ comment.message }} <small>by {{ comment.author }}</small>
+                            <a href="{% url "magazine:comment_edit" article.pk comment.pk %}">E</a>
+                        </p>
                     </div>
                 </div>
             {% empty %}
