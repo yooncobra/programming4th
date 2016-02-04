@@ -5,6 +5,7 @@ from . import views
 
 
 urlpatterns = [
+    url(r'^signup/$', views.signup, name='signup'),
     url(r'^login/$', login, name='login', kwargs={
         'template_name': 'form.html',
     }),
