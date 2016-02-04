@@ -40,6 +40,13 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('blog:post_detail', args=[self.pk])
 
+    def as_dict(self):
+        return {
+            'id': self.pk,
+            'title': self.title,
+            'phone': self.phone,
+        }
+
 
 @python_2_unicode_compatible
 class Comment(models.Model):
